@@ -103,9 +103,37 @@ function convert() {
 
 function copyResult() {
   const text = document.getElementById('output').textContent;
+  const btn = document.getElementById('copyBtn');
+
   navigator.clipboard.writeText(text)
-    .then(() => alert('Скопировано!'))
-    .catch(() => alert('Ошибка копирования'));
+    .then(() => {
+      showCopiedState(btn);
+    })
+    .catch(() => {
+      fallbackCopy(text);
+      showCopiedState(btn);
+    });
+}
+
+function showCopiedState(btn) {
+  const original = btn.textContent;
+
+  btn.textContent = '✓ Copied';
+  btn.disabled = true;
+
+  setTimeout(() => {
+    btn.textContent = original;
+    btn.disabled = false;
+  }, 1500);
+}
+
+function fallbackCopy(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand('copy');
+  document.body.removeChild(textarea);
 }
 </script>
 
