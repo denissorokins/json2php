@@ -104,8 +104,8 @@ function convert() {
 function copyResult() {
   const text = document.getElementById('output').textContent;
   navigator.clipboard.writeText(text)
-    .then(() => alert('Скопировано!'))
-    .catch(() => alert('Ошибка копирования'));
+    .then(() => console.log('copied'))
+    .catch(() => console.error('Ошибка копирования'));
 }
 </script>
 
